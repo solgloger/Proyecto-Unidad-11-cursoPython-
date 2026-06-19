@@ -45,10 +45,12 @@ class LibroUpdateView (PermissionRequiredMixin, UpdateView):
     model = Libro
     form_class = LibroForm
     template_name = "libreria/libro_forms.html"
+    permission_required = "libreria.change_libro"
     success_url = reverse_lazy("libros")
 
 class LibroDeleteView(PermissionRequiredMixin, DeleteView):
     model = Libro
     template_name = "libreria/libro_confirm_delete.html"
+    permission_required = "libreria.delete_libro"
     success_url = reverse_lazy("libros")
 
