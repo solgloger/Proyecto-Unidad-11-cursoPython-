@@ -1,0 +1,14 @@
+{% extends "libreria/base.html" %}
+
+{% block content %}
+
+<h2>¿Eliminar {{ object.titulo }}?</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+</form>
+
+<a href="{% url 'libros' %}">Cancelar</a>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "libreria/base.html" %}
+
+{% block content %}
+
+<h2>{{ libro.titulo }}</h2>
+
+<p>Autor: {{ libro.autor }}</p>
+<p>Categoría: {{ libro.categoria }}</p>
+<p>Fecha: {{ libro.fecha_publicacion }}</p>
+<p>Disponible: {{ libro.disponible }}</p>
+
+<a href="{% url 'libros' %}">Volver</a>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "libreria/base.html" %}
+
+{% block title %}Listado de libros{% endblock %}
+
+{% block content %}
+
+<h2>Libros</h2>
+
+<!-- BÚSQUEDA -->
+<form method="GET" style="margin-bottom: 20px;">
+    <input 
+        type="text" 
+        name="q" 
+        placeholder="Buscar por título, autor o categoría..."
+        value="{{ request.GET.q }}"
+    >
+    <button type="submit">Buscar</button>
+    <a href="{% url 'libros' %}">Limpiar</a>
+</form>
+
+<!-- BOTÓN CREAR -->
+{% if perms.libreria.add_libro %}
+    <p>
+        <a href="{% url 'libro_create' %}">Crear libro</a>
+    </p>
+{% endif %}
+
+<hr>
+
+<!-- LISTADO -->
+{% if libros %}
+
+    <ul>
+        {% for libro in libros %}
+            <li style="margin-bottom: 10px;">
+
+                <strong>{{ libro.titulo }}</strong><br>
+                Autor: {{ libro.autor.nombre }}<br>
+                Categoría: {{ libro.categoria.nombre }}<br>
+                Fecha: {{ libro.fecha_publicacion }}<br>
+                Disponible: {{ libro.disponible }}
+
+                <br>
+
+                <!-- ACCIONES -->
+                <a href="{% url 'libro_detail' libro.id %}">Ver</a>
+
+                {% if perms.libreria.change_libro %}
+                    | <a href="{% url 'libro_update' libro.id %}">Editar</a>
+                {% endif %}
+
+                {% if perms.libreria.delete_libro %}
+                    | <a href="{% url 'libro_delete' libro.id %}">Eliminar</a>
+                {% endif %}
+
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+
+{% else %}
+
+    <p>No hay libros disponibles.</p>
+
+{% endif %}
+
+{% endblock %}
